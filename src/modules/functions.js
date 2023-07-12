@@ -5,7 +5,9 @@ function createTag(parent, type, id_name, class_name, content) {
   if (parent != null) {
     parent.append(tag);
   } else {
-    document.body.append(tag);
+    const start = document.querySelector(".content");
+    start.append(tag);
+    //document.body.append(tag);
   }
 
   if (id_name != null) {
@@ -25,9 +27,16 @@ function createTag(parent, type, id_name, class_name, content) {
 
 //create multiple tags
 function createMultiTags(parent, type, num, list) {
-  for (let i = 0; i < num; i++) {
-    createTag(parent, type, null, list[i].replace(/ /g, "_"), list[i]);
+  if (list != null) {
+    for (let i = 0; i < num; i++) {
+      createTag(parent, type, null, list[i].replace(/ /g, "_"), list[i]);
+    }
+  } else {
+    for (let i = 0; i < num; i++) {
+      createTag(parent, type);
+    }
   }
+
 }
 
 export { createTag, createMultiTags };
