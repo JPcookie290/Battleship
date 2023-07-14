@@ -3,3 +3,10 @@
   margin: 0;
   text-align: center;
 }
+
+footer {
+  margin-left: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-evenly;
+}/*# sourceMappingURL=style.css.map */

@@ -6,7 +6,8 @@ class GameBoards {
   constructor(size) {
     this.size = size;
     this.grid = [];
-    this.ships = [];
+    this.shiplist = [];
+    this.createShips();
   }
 
   createGrid() {
@@ -17,39 +18,41 @@ class GameBoards {
       }
       this.grid.push(inner);
     }
-    return this.grid;
+    
   }
 
   createShips() {
     const destroyer = new Ship(2);
     const submarine = new Ship(3);
-    const cruiser = new Ship(3);
-    const battleship = new Ship(4);
-    const carrier = new Ship(5);
+    const cruiser = new Ship(4);
+    const battleship = new Ship(5);
+    const carrier = new Ship(6);
 
-    this.ships.push(destroyer, submarine, cruiser, battleship, carrier);
+    this.shiplist.push(destroyer, submarine, cruiser, battleship, carrier);
   }
 
-  placeShips(StartRow, StartColumn) {
-    const ships = this.ships;
-    ships.forEach(item => {
-      for (let i = 0; i < item.getLength; i++) {
-        this.grid[StartRow][StartColumn + i] = 1;
-      }
-    });
-
-  }
-
-  takingShoot(row, column) {
-    if (this.grid[row][column] === 1) {
-      this.grid[row][column] = 2;
-    } else if (this.grid[row][column] === 0) {
-      this.grid[row][column] = 3;
+  placeShip(StartRow, StartColumn, shipIndex) {
+    const ship = this.shiplist[shipIndex];
+    let shipLength = ship.getLength();
+    for (let i = 0; i < shipLength; i++) {
+      this.grid[StartRow][StartColumn + i] = ship.getId();
     }
-    else {
+  }
+ takingShoot(row, column) {
+
+    //-- 0 = water --//-- 2,3,4,5,6 = ships --//-- 7 = hit --//-- 8 = miss --//
+
+    if (this.grid[row][column] === 2 || this.grid[row][column] === 3 
+      || this.grid[row][column] === 4 || this.grid[row][column] === 5 
+      || this.grid[row][column] === 6 ) {
+      this.grid[row][column] = 7;
+    } else if (this.grid[row][column] === 0) {
+      this.grid[row][column] = 8;
+    } else {
       console.log('Spot already shot.');
     }
   }
 }
+
 
 export { GameBoards };
